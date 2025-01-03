@@ -3,7 +3,6 @@
 
 - Next.js
 - TypeScript
-- OpenAI API
 - Tailwind CSS
 
 ## <a name="features">🔋 Features</a>
@@ -29,8 +28,8 @@ Make sure you have the following installed on your machine:
 **Cloning the Repository**
 
 ```bash
-git clone https://github.com
-cd ai-finance-tracking
+git clone https://github.com/malopez19/financeAI.git
+cd financeAI
 ```
 
 **Installation**
