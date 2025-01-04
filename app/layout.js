@@ -1,9 +1,9 @@
-import { Inter, Outfit } from "next/font/google";
+import { Roboto , Outfit } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
 
-const outfit = Outfit({ subsets: ["latin"] });
+const roboto = Roboto({  weight: '500', subsets: ["latin"] });
 
 export const metadata = {
   title: "Create Next App",
@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
     >
       <html lang="en">
-        <body className={outfit.className}>
+        <body className={roboto.className}>
           <Toaster />
           {children}
         </body>
