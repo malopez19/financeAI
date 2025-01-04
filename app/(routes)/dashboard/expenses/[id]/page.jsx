@@ -8,7 +8,7 @@ import CashItem from "../../cash-in/_components/CashItem";
 import AddExpense from "../_components/AddExpense";
 import ExpenseListTable from "../_components/ExpenseListTable";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Pen, PenBox, Trash } from "lucide-react";
+import { ArrowLeft, Trash } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -34,7 +34,7 @@ function ExpensesScreen({ params }) {
   }, [user]);
 
   /**
-   * Get cash Information
+   * Obtener informacion del dinero total
    */
   const getCashInfo = async () => {
     const result = await db
@@ -54,7 +54,7 @@ function ExpensesScreen({ params }) {
   };
 
   /**
-   * Get Latest Expenses
+   * Obtener ultimas transferencias
    */
   const getExpensesList = async () => {
     const result = await db
@@ -67,7 +67,7 @@ function ExpensesScreen({ params }) {
   };
 
   /**
-   * Used to Delete Cash
+   * Eliminar bolsillo
    */
   const deleteCash = async () => {
     const deleteExpenseResult = await db
@@ -81,7 +81,7 @@ function ExpensesScreen({ params }) {
         .where(eq(Cash.id, params.id))
         .returning();
     }
-    toast("cash Deleted !");
+    toast("Bolsillo Eliminado!");
     route.replace("/dashboard/cash-in");
   };
 
@@ -90,39 +90,38 @@ function ExpensesScreen({ params }) {
       <h2 className="text-2xl font-bold gap-2 flex justify-between items-center">
         <span className="flex gap-2 items-center">
           <ArrowLeft onClick={() => route.back()} className="cursor-pointer" />
-          My Expenses
+          Mis Transferencias
         </span>
+
         <div className="flex gap-2 items-center">
-          <EditCash
-            cashInfo={cashInfo}
-            refreshData={() => getCashInfo()}
-          />
+          <EditCash cashInfo={cashInfo} refreshData={() => getCashInfo()} />
 
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button className="flex gap-2 rounded-full" variant="destructive">
-                <Trash className="w-4" /> Delete
+                <Trash className="w-4" /> Eliminar
               </Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogTitle>¿Estas completamente seguro?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete
-                  your current cash along with expenses and remove your data
-                  from our servers.
+                  Esta acción no se puede deshacer. Esto eliminará permanentemente
+                  su efectivo actual junto con los gastos y eliminará sus datos
+                  de nuestros servidores.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogCancel>Cancelar</AlertDialogCancel>
                 <AlertDialogAction onClick={() => deleteCash()}>
-                  Continue
+                  Continuar
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
         </div>
       </h2>
+
       <div
         className="grid grid-cols-1 
         md:grid-cols-2 mt-6 gap-5"
@@ -135,6 +134,7 @@ function ExpensesScreen({ params }) {
             rounded-lg animate-pulse"
           ></div>
         )}
+
         <AddExpense
           cashId={params.id}
           user={user}

@@ -5,7 +5,6 @@ import CardInfo from "./_components/CardInfo";
 import { db } from "@/utils/dbConfig";
 import { desc, eq, getTableColumns, sql } from "drizzle-orm";
 import { Cash, Expenses } from "@/utils/schema";
-import BarChartDashboard from "./_components/BarChartDashboard";
 
 function Dashboard() {
   const { user } = useUser();
@@ -43,12 +42,6 @@ function Dashboard() {
       </p>
 
       <CardInfo cashList={cashList} />
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 mt-10 gap-5">
-        <div className="lg:col-span-3">
-          <BarChartDashboard cashList={cashList} />
-        </div>
-      </div>
     </div>
   );
 }

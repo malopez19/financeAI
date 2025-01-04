@@ -4,15 +4,15 @@ import { ContainerScroll } from "../../components/ui/container-scroll-animation"
 
 function Hero() {
   return (
-    <section className="bg-gray-50 flex items-center flex-col">
+    <section className="bg-blue-800 flex items-center flex-col">
       <div className="flex flex-col overflow-hidden">
         <ContainerScroll
           titleComponent={
             <>
-              <h1 className="text-4xl font-semibold text-black dark:text-white">
-                Manage your Money with AI-Driven Personal <br />
-                <span className="text-4xl md:text-[6rem] text-blue-800 font-bold mt-1 leading-none">
-                  Finance Advisor
+              <h1 className="text-4xl font-semibold text-black dark:text-white mb-8">
+                Administra Tu Dinero Personal <br />
+                <span className="text-4xl md:text-[6rem] text-indigo-100 font-bold mt-1 mb-24 leading-none">
+                  App Financiera
                 </span>
               </h1>
             </>

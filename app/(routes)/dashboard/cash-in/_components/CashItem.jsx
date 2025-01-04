@@ -23,7 +23,7 @@ function CashItem({ cash }) {
             </h2>
             <div>
               <h2 className="font-bold">{cash.name}</h2>
-              <h2 className="text-sm text-gray-500">{cash.totalItem} Item</h2>
+              <h2 className="text-sm text-gray-500">{cash.totalItem} Gastos</h2>
             </div>
           </div>
           <h2 className="font-bold text-primary text-lg"> ${cash.amount}</h2>
@@ -35,7 +35,7 @@ function CashItem({ cash }) {
               ${cash.totalSpend ? cash.totalSpend : 0} Gastado
             </h2>
             <h2 className="text-xs text-slate-400">
-              ${cash.amount - cash.totalSpend} Remaining
+              ${cash.amount - cash.totalSpend} Restante
             </h2>
           </div>
           <div

@@ -10,7 +10,6 @@ import React, { useEffect, useState } from "react";
 function CardInfo({ cashList }) {
   const [totalCash, setTotalCash] = useState(0);
   const [totalSpend, setTotalSpend] = useState(0);
-  const [totalIncome, setTotalIncome] = useState(0);
   const [netCash, setNetCash] = useState(0); 
   
 
@@ -59,7 +58,7 @@ function CardInfo({ cashList }) {
             </div>
             <div className="p-7 border rounded-2xl flex items-center justify-between">
               <div>
-                <h2 className="text-sm">No. de Billeteras</h2>
+                <h2 className="text-sm">No. de Bolsillos</h2>
                 <h2 className="font-bold text-2xl">{cashList?.length}</h2>
               </div>
               <Wallet className="bg-blue-800 p-3 h-12 w-12 rounded-full text-white" />

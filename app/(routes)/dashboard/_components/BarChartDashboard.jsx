@@ -9,7 +9,9 @@ import {
   YAxis,
 } from "recharts";
 
+
 function BarChartDashboard({ cashList }) {
+  
   return (
     <div className="border rounded-2xl p-5">
       <h2 className="font-bold text-lg">Activity</h2>
