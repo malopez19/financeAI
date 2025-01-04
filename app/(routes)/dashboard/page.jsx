@@ -50,7 +50,7 @@ function Dashboard() {
           ),
         })
         .from(Incomes)
-        .groupBy(Incomes.id); // Suponiendo que quieras agrupar por ID o cualquier otra columna relevante
+        .groupBy(Incomes.id); // Suponiendo que quiera agrupar por ID o cualquier otra columna relevante
 
       setIncomeList(result);
     } catch (error) {
@@ -87,7 +87,6 @@ function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 mt-6 gap-5">
         <div className="lg:col-span-2">
           <BarChartDashboard cashList={cashList} />
-
           <ExpenseListTable
             expensesList={expensesList}
             refreshData={() => getCashList()}
