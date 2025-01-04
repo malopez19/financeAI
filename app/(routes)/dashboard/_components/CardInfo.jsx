@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
-function CardInfo({ cashList, incomeList }) {
+function CardInfo({ cashList }) {
   const [totalCash, setTotalCash] = useState(0);
   const [totalSpend, setTotalSpend] = useState(0);
   const [totalIncome, setTotalIncome] = useState(0);
@@ -15,26 +15,20 @@ function CardInfo({ cashList, incomeList }) {
   
 
   useEffect(() => {
-    if (cashList.length > 0 || incomeList.length > 0) {
+    if (cashList.length > 0) {
       CalculateCardInfo();
     }
-  }, [cashList, incomeList]);
+  }, [cashList]);
 
   const CalculateCardInfo = () => {
     let totalCash_ = 0;
     let totalSpend_ = 0;
-    let totalIncome_ = 0;
 
     cashList.forEach((element) => {
       totalCash_ = totalCash_ + Number(element.amount);
       totalSpend_ = totalSpend_ + element.totalSpend;
     });
 
-    incomeList.forEach((element) => {
-      totalIncome_ = totalIncome_ + element.totalAmount;
-    });
-
-    setTotalIncome(totalIncome_);
     setTotalCash(totalCash_);
     setTotalSpend(totalSpend_);
     setNetCash(totalCash_ - totalSpend_); 
@@ -56,7 +50,7 @@ function CardInfo({ cashList, incomeList }) {
             </div>
             <div className="p-7 border rounded-2xl flex items-center justify-between">
               <div>
-                <h2 className="text-sm">Total Spend</h2>
+                <h2 className="text-sm">Total Gastado</h2>
                 <h2 className="font-bold text-2xl">
                   ${formatNumber(totalSpend)}
                 </h2>
@@ -65,23 +59,14 @@ function CardInfo({ cashList, incomeList }) {
             </div>
             <div className="p-7 border rounded-2xl flex items-center justify-between">
               <div>
-                <h2 className="text-sm">No. Of Cash</h2>
+                <h2 className="text-sm">No. de Billeteras</h2>
                 <h2 className="font-bold text-2xl">{cashList?.length}</h2>
               </div>
               <Wallet className="bg-blue-800 p-3 h-12 w-12 rounded-full text-white" />
             </div>
             <div className="p-7 border rounded-2xl flex items-center justify-between">
               <div>
-                <h2 className="text-sm">Sum of Income Streams</h2>
-                <h2 className="font-bold text-2xl">
-                  ${formatNumber(totalIncome)}
-                </h2>
-              </div>
-              <CircleDollarSign className="bg-blue-800 p-3 h-12 w-12 rounded-full text-white" />
-            </div>
-            <div className="p-7 border rounded-2xl flex items-center justify-between">
-              <div>
-                <h2 className="text-sm">Net Cash</h2>
+                <h2 className="text-sm">Dinero Restante</h2>
                 <h2 className="font-bold text-2xl">
                   ${formatNumber(netCash)}
                 </h2>
