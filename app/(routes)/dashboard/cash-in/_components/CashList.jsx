@@ -39,7 +39,9 @@ function CashList() {
       >
         <CreateCash refreshData={() => getCashList()} />
         {cashList?.length > 0
-          ? cashList.map((cash, index) => <CashItem cash={cash} key={index} />)
+          ? cashList.map((cash, index) => 
+            <CashItem cash={cash} key={index} />
+          )
           : [1, 2, 3, 4, 5].map((item, index) => (
               <div
                 key={index}

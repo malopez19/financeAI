@@ -7,7 +7,7 @@ function CashItem({ cash }) {
     return perc > 100 ? 100 : perc.toFixed(2);
   };
   return (
-    <Link href={"/dashboard/expenses/" + cash?.id}>
+    <Link href={"/dashboard/expenseList/" + cash?.id}>
       <div
         className="p-5 border rounded-2xl
         hover:shadow-md cursor-pointer h-[170px]"
