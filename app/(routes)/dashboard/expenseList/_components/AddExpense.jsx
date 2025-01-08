@@ -7,10 +7,10 @@ import moment from "moment";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
-function AddExpense({ cashId, user, refreshData }) {
-  const [accountNumber, setAccountNumber] = useState();
+function AddExpense({ cashId, refreshData }) {
+  const [accountNumber, setAccountNumber] = useState("");
   const [description, setDescription] = useState("");
-  const [amount, setAmount] = useState();
+  const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
   /**
    * Usado para agregar nuevo gasto

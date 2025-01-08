@@ -38,12 +38,11 @@ function SideNav() {
   const path = usePathname();
 
   useEffect(() => {
-    console.log(path);
   }, [path]);
   return (
     <div className="h-screen p-5 border shadow-sm">
       <div className="flex flex-row items-center">
-        <Image src={"./logo2.svg"} alt="logo" width={40} height={25} />
+        <Image src={"./logo2.svg"} alt="logo" width={30} height={30} style={{width:"auto", height:"auto"}}/>
         <span className="text-blue-800 font-bold text-xl ml-3">FinappIA</span>
       </div>
       <div className="mt-5">

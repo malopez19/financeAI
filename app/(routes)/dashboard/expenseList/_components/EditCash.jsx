@@ -12,7 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useUser } from "@clerk/nextjs";
+// import { useUser } from "@clerk/nextjs";
 import { Input } from "@/components/ui/input";
 import { db } from "@/utils/dbConfig";
 import { Cash } from "@/utils/schema";
@@ -21,9 +21,9 @@ import { toast } from "sonner";
 
 function EditCash({ cashInfo, refreshData }) {
 
-  const [amount, setAmount] = useState();
+  const [amount, setAmount] = useState("");
 
-  const { user } = useUser();
+  // const { user } = useUser();
 
   useEffect(() => {
     if (cashInfo) {

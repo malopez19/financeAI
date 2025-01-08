@@ -28,15 +28,27 @@ function ExpensesScreen({ params }) {
   const { user } = useUser();
   const [cashInfo, setcashInfo] = useState();
   const [expensesList, setExpensesList] = useState([]);
+  const [unwrappedParams, setUnwrappedParams] = useState(null);
   const route = useRouter();
+
   useEffect(() => {
-    user && getCashInfo();
-  }, [user]);
+    params.then((resolvedParams) => {
+      setUnwrappedParams(resolvedParams);
+    });
+  }, [params]);
+
+  useEffect(() => {
+    if (user && unwrappedParams) {
+      getCashInfo();
+    }
+  }, [user, unwrappedParams]);
 
   /**
    * Obtener informacion del dinero total
    */
   const getCashInfo = async () => {
+    if (!unwrappedParams) return;
+    
     const result = await db
       .select({
         ...getTableColumns(Cash),
@@ -46,7 +58,7 @@ function ExpensesScreen({ params }) {
       .from(Cash)
       .leftJoin(Expenses, eq(Cash.id, Expenses.cashId))
       .where(eq(Cash.createdBy, user?.primaryEmailAddress?.emailAddress))
-      .where(eq(Cash.id, params.id))
+      .where(eq(Cash.id, unwrappedParams.id))
       .groupBy(Cash.id);
 
     setcashInfo(result[0]);
@@ -60,7 +72,7 @@ function ExpensesScreen({ params }) {
     const result = await db
       .select()
       .from(Expenses)
-      .where(eq(Expenses.cashId, params.id))
+      .where(eq(Expenses.cashId, unwrappedParams.id))
       .orderBy(desc(Expenses.id));
     setExpensesList(result);
     console.log(result);
@@ -72,13 +84,13 @@ function ExpensesScreen({ params }) {
   const deleteCash = async () => {
     const deleteExpenseResult = await db
       .delete(Expenses)
-      .where(eq(Expenses.cashId, params.id))
+      .where(eq(Expenses.cashId, unwrappedParams.id))
       .returning();
 
     if (deleteExpenseResult) {
       const result = await db
         .delete(Cash)
-        .where(eq(Cash.id, params.id))
+        .where(eq(Cash.id, unwrappedParams.id))
         .returning();
     }
     toast("Bolsillo Eliminado!");
@@ -136,7 +148,7 @@ function ExpensesScreen({ params }) {
         )}
 
         <AddExpense
-          cashId={params.id}
+          cashId={unwrappedParams?.id}
           user={user}
           refreshData={() => getCashInfo()}
         />

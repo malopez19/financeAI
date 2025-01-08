@@ -20,7 +20,7 @@ function DashboardLayout({ children }) {
       .select()
       .from(Cash)
       .where(eq(Cash.createdBy, user?.primaryEmailAddress?.emailAddress));
-    console.log(result);
+      
     if (result?.length == 0) {
       router.replace("/dashboard/cash-in");
     }

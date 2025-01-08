@@ -59,13 +59,6 @@ function CreateCash({ refreshData }) {
             <DialogDescription>
               <div className="mt-5">
                   {"😀"}
-                {/* <div className="mt-2">
-                  <h2 className="text-black font-medium my-1">Motivo</h2>
-                  <Input
-                    placeholder="e.g. Home Decor"
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </div> */}
                 <div className="mt-2">
                   <h2 className="text-black font-medium my-1">Monto</h2>
                   <Input
