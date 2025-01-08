@@ -44,8 +44,8 @@ function SideNav() {
   return (
     <div className="h-screen p-5 border shadow-sm">
       <div className="flex flex-row items-center">
-        <Image src={"./chart-donut.svg"} alt="logo" width={40} height={25} />
-        <span className="text-blue-800 font-bold text-xl">FinappIA</span>
+        <Image src={"./logo2.svg"} alt="logo" width={40} height={25} />
+        <span className="text-blue-800 font-bold text-xl ml-3">FinappIA</span>
       </div>
       <div className="mt-5">
         {menuList.map((menu, index) => (
