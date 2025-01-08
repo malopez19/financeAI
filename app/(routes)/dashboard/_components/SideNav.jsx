@@ -6,7 +6,6 @@ import {
   ReceiptText,
   CircleDollarSign,
 } from "lucide-react";
-import { UserButton } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 function SideNav() {
@@ -21,7 +20,7 @@ function SideNav() {
       id: 2,
       name: "Transferencia",
       icon: CircleDollarSign,
-      path: "/dashboard/incomes",
+      path: "/dashboard/expense",
     },
     {
       id: 3,
@@ -33,7 +32,7 @@ function SideNav() {
       id: 4,
       name: "Historial de Transferencias",
       icon: ReceiptText,
-      path: "/dashboard/expenses",
+      path: "/dashboard/expenseList",
     },
   ];
   const path = usePathname();
