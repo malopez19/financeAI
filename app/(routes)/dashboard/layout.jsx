@@ -2,8 +2,8 @@
 import React, { useEffect } from "react";
 import SideNav from "./_components/SideNav";
 import DashboardHeader from "./_components/DashboardHeader";
-import { db } from "@/utils/dbConfig";
-import { Cash } from "@/utils/schema";
+import { db } from "@/lib/dbConfig";
+import { Cash } from "@/lib/schema";
 import { useUser } from "@clerk/nextjs";
 import { eq } from "drizzle-orm";
 import { useRouter } from "next/navigation";

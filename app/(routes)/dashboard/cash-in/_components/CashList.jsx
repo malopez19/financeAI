@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import CreateCash from "./CreateCash";
-import { db } from "@/utils/dbConfig";
+import { db } from "@/lib/dbConfig";
 import { desc, eq, getTableColumns, sql } from "drizzle-orm";
-import { Cash, Expenses } from "@/utils/schema";
+import { Cash, Expenses } from "@/lib/schema";
 import { useUser } from "@clerk/nextjs";
 import CashItem from "./CashItem";
 

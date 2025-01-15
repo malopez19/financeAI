@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { db } from "@/utils/dbConfig";
-import { Cash, Expenses } from "@/utils/schema";
+import { db } from "@/lib/dbConfig";
+import { Cash, Expenses } from "@/lib/schema";
 import { Loader } from "lucide-react";
 import moment from "moment";
 import React, { useState } from "react";
@@ -43,7 +43,7 @@ function AddExpense({ cashId, refreshData }) {
     <div className="border p-5 rounded-2xl">
       <h2 className="font-bold text-lg">Agregar Transferencia</h2>
       <div className="mt-2">
-        <h2 className="text-black font-medium my-1">Numero de cuenta</h2>
+        <p className="text-black font-medium my-1">Numero de cuenta</p>
         <Input
           placeholder="e.g. 123456789"
           type="number"
@@ -52,7 +52,7 @@ function AddExpense({ cashId, refreshData }) {
         />
       </div>
       <div className="mt-2">
-        <h2 className="text-black font-medium my-1">Descripcion</h2>
+        <p className="text-black font-medium my-1">Descripcion</p>
         <Input
           placeholder="e.g. Gasto en comida"
           type="text"
@@ -61,7 +61,7 @@ function AddExpense({ cashId, refreshData }) {
         />
       </div>
       <div className="mt-2">
-        <h2 className="text-black font-medium my-1">Monto a Enviar</h2>
+        <p className="text-black font-medium my-1">Monto a Enviar</p>
         <Input
           placeholder="e.g. 20000"
           type="number"

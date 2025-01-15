@@ -13,8 +13,8 @@ import {
 import EmojiPicker from "emoji-picker-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { db } from "@/utils/dbConfig";
-import { Incomes } from "@/utils/schema";
+import { db } from "@/lib/dbConfig";
+import { Incomes } from "@/lib/schema";
 import { useUser } from "@clerk/nextjs";
 import { toast } from "sonner";
 
@@ -81,7 +81,7 @@ function CreateIncomes({ refreshData }) {
                   />
                 </div>
                 <div className="mt-2">
-                  <h2 className="text-black font-medium my-1">Source Name</h2>
+                  <p className="text-black font-medium my-1">Source Name</p>
                   <Input
                     placeholder="e.g. Youtube"
                     type="text"
@@ -89,7 +89,7 @@ function CreateIncomes({ refreshData }) {
                   />
                 </div>
                 <div className="mt-2">
-                  <h2 className="text-black font-medium my-1">Montly Amount</h2>
+                  <p className="text-black font-medium my-1">Montly Amount</p>
                   <Input
                     type="number"
                     placeholder="e.g. 10000$"

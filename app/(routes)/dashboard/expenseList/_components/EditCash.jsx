@@ -14,8 +14,8 @@ import {
 } from "@/components/ui/dialog";
 // import { useUser } from "@clerk/nextjs";
 import { Input } from "@/components/ui/input";
-import { db } from "@/utils/dbConfig";
-import { Cash } from "@/utils/schema";
+import { db } from "@/lib/dbConfig";
+import { Cash } from "@/lib/schema";
 import { eq } from "drizzle-orm";
 import { toast } from "sonner";
 
@@ -60,7 +60,7 @@ function EditCash({ cashInfo, refreshData }) {
             <DialogDescription>
               <div className="mt-5">
                 <div className="mt-2">
-                  <h2 className="text-black font-medium my-1">Monto</h2>
+                  <p className="text-black font-medium my-1">Monto</p>
                   <Input
                     type="number"
                     defaultValue={cashInfo?.amount}

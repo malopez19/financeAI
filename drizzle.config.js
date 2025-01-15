@@ -1,10 +1,10 @@
 export default {
   dialect: "postgresql",
-  schema: "./utils/schema.jsx",
+  schema: "./lib/schema.jsx",
   out: "./drizzle",
   dbCredentials: {
-    url: "postgresql://testapp_owner:vumjK0PqRyd9@ep-misty-rice-a5j3q6dd.us-east-2.aws.neon.tech/test?sslmode=require",
+    url: "postgresql://neondb_owner:XxEUju6vlr9g@ep-sweet-wildflower-a5s2uyn8.us-east-2.aws.neon.tech/neondb?sslmode=require",
     connectionString:
-      "postgresql://testapp_owner:vumjK0PqRyd9@ep-misty-rice-a5j3q6dd.us-east-2.aws.neon.tech/test?sslmode=require",
+      "postgresql://neondb_owner:XxEUju6vlr9g@ep-sweet-wildflower-a5s2uyn8.us-east-2.aws.neon.tech/neondb?sslmode=require",
   },
 };

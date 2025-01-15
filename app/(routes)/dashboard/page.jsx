@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import CardInfo from "./_components/CardInfo";
-import { db } from "@/utils/dbConfig";
+import { db } from "@/lib/dbConfig";
 import { desc, eq, getTableColumns, sql } from "drizzle-orm";
-import { Cash, Expenses } from "@/utils/schema";
+import { Cash, Expenses } from "@/lib/schema";
 
 function Dashboard() {
   const { user } = useUser();

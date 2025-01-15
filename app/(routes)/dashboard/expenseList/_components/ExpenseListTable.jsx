@@ -1,5 +1,5 @@
-import { db } from "@/utils/dbConfig";
-import { Expenses } from "@/utils/schema";
+import { db } from "@/lib/dbConfig";
+import { Expenses } from "@/lib/schema";
 import { eq } from "drizzle-orm";
 import React from "react";
 import { toast } from "sonner";

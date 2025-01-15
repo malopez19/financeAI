@@ -12,13 +12,12 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { db } from "@/utils/dbConfig";
-import { Cash } from "@/utils/schema";
+import { db } from "@/lib/dbConfig";
+import { Cash } from "@/lib/schema";
 import { useUser } from "@clerk/nextjs";
 import { toast } from "sonner";
 
 function CreateCash({ refreshData }) {
-  const [name, setName] = useState();
   const [amount, setAmount] = useState();
 
   const { user } = useUser();
@@ -60,7 +59,7 @@ function CreateCash({ refreshData }) {
               <div className="mt-5">
                   {"😀"}
                 <div className="mt-2">
-                  <h2 className="text-black font-medium my-1">Monto</h2>
+                  <p className="text-black font-medium my-1">Monto</p>
                   <Input
                     type="number"
                     placeholder="e.g. $10000"
