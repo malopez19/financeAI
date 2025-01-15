@@ -57,9 +57,8 @@ function CreateCash({ refreshData }) {
             <DialogTitle>Ingresa el dinero</DialogTitle>
             <DialogDescription>
               <div className="mt-5">
-                  {"😀"}
                 <div className="mt-2">
-                  <p className="text-black font-medium my-1">Monto</p>
+                  <div className="text-black font-medium my-1">Monto</div>
                   <Input
                     type="number"
                     placeholder="e.g. $10000"

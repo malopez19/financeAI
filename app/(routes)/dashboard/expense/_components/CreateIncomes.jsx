@@ -81,7 +81,7 @@ function CreateIncomes({ refreshData }) {
                   />
                 </div>
                 <div className="mt-2">
-                  <p className="text-black font-medium my-1">Source Name</p>
+                  <div className="text-black font-medium my-1">Source Name</div>
                   <Input
                     placeholder="e.g. Youtube"
                     type="text"
@@ -89,7 +89,7 @@ function CreateIncomes({ refreshData }) {
                   />
                 </div>
                 <div className="mt-2">
-                  <p className="text-black font-medium my-1">Montly Amount</p>
+                  <div className="text-black font-medium my-1">Montly Amount</div>
                   <Input
                     type="number"
                     placeholder="e.g. 10000$"

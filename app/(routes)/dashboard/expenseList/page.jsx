@@ -20,6 +20,7 @@ function ExpensesScreen() {
     const result = await db
       .select({
         id: Expenses.id,
+        accountNumber: Expenses.accountNumber,
         name: Expenses.name,
         amount: Expenses.amount,
         createdAt: Expenses.createdAt,

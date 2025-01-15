@@ -60,7 +60,7 @@ function EditCash({ cashInfo, refreshData }) {
             <DialogDescription>
               <div className="mt-5">
                 <div className="mt-2">
-                  <p className="text-black font-medium my-1">Monto</p>
+                  <div className="text-black font-medium my-1">Monto</div>
                   <Input
                     type="number"
                     defaultValue={cashInfo?.amount}

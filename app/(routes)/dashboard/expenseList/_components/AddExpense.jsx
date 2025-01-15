@@ -43,7 +43,7 @@ function AddExpense({ cashId, refreshData }) {
     <div className="border p-5 rounded-2xl">
       <h2 className="font-bold text-lg">Agregar Transferencia</h2>
       <div className="mt-2">
-        <p className="text-black font-medium my-1">Numero de cuenta</p>
+        <div className="text-black font-medium my-1">Numero de cuenta</div>
         <Input
           placeholder="e.g. 123456789"
           type="number"
@@ -52,7 +52,7 @@ function AddExpense({ cashId, refreshData }) {
         />
       </div>
       <div className="mt-2">
-        <p className="text-black font-medium my-1">Descripcion</p>
+        <div className="text-black font-medium my-1">Descripcion</div>
         <Input
           placeholder="e.g. Gasto en comida"
           type="text"
@@ -61,7 +61,7 @@ function AddExpense({ cashId, refreshData }) {
         />
       </div>
       <div className="mt-2">
-        <p className="text-black font-medium my-1">Monto a Enviar</p>
+        <div className="text-black font-medium my-1">Monto a Enviar</div>
         <Input
           placeholder="e.g. 20000"
           type="number"
