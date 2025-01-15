@@ -1,4 +1,4 @@
-import { Roboto , Outfit } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
@@ -18,8 +18,6 @@ export default function RootLayout({ children }) {
       fallbackRedirectUrl={process.env.NEXT_PUBLIC_CLERK_FALLBACK_REDIRECT_URL}
       signInUrl={process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL}
       signUpUrl={process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL}
-      afterSignInUrl={process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL}
-
     >
       <html lang="en">
         <head>
