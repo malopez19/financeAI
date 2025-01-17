@@ -13,8 +13,9 @@ function CashList() {
   useEffect(() => {
     user && getCashList();
   }, [user]);
+
   /**
-   * Get all cash list
+   * Obtener la lista de dinero
    */
   const getCashList = async () => {
     const result = await db
