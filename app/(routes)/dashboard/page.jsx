@@ -4,12 +4,13 @@ import { useUser } from "@clerk/nextjs";
 import CardInfo from "./_components/CardInfo";
 import { db } from "@/lib/dbConfig";
 import { desc, eq, getTableColumns, sql } from "drizzle-orm";
-import { Cash, Expenses } from "@/lib/schema";
+import { Cash, Expenses, Incomes } from "@/lib/schema";
 
 function Dashboard() {
   const { user } = useUser();
 
   const [cashList, setCashList] = useState([]);
+  const [incomeList, setIncomeList] = useState([]);
 
   useEffect(() => {
     user && getCashList();
@@ -32,6 +33,24 @@ function Dashboard() {
       .orderBy(desc(Cash.id));
 
     setCashList(result);
+    getIncomeList();
+  };
+
+  /**
+   * Get Income stream list
+   */
+  const getIncomeList = async () => {
+    const result = await db
+      .select({
+        ...getTableColumns(Incomes),
+        totalAmountIncome: sql`SUM(CAST(${Incomes.amount} AS NUMERIC))`.mapWith(
+          Number
+        ),
+      })
+      .from(Incomes)
+      .groupBy(Incomes.id); // Assuming you want to group by ID or any other relevant column
+
+    setIncomeList(result);
   };
 
   return (
@@ -41,7 +60,7 @@ function Dashboard() {
         Que esta pasando con tu dinero, administra tus finanzas.
       </p>
 
-      <CardInfo cashList={cashList} />
+      <CardInfo cashList={cashList} incomeList={incomeList}/>
     </div>
   );
 }

@@ -6,9 +6,11 @@ import { desc, eq, getTableColumns, sql } from "drizzle-orm";
 import { Incomes, Expenses } from "@/lib/schema";
 import { useUser } from "@clerk/nextjs";
 import IncomeItem from "./IncomeItem";
+import TotalIncome from "./TotalIncome";
 
 function IncomeList() {
   const [incomelist, setIncomelist] = useState([]);
+  const [totalSpend, setTotalSpend] = useState(0);
   const { user } = useUser();
   useEffect(() => {
     user && getIncomelist();
@@ -27,6 +29,7 @@ function IncomeList() {
       .groupBy(Incomes.id)
       .orderBy(desc(Incomes.id));
     setIncomelist(result);
+    setTotalSpend(result.reduce((acc, income) => acc + income.totalSpend, 0));
   };
 
   return (
@@ -36,16 +39,15 @@ function IncomeList() {
         md:grid-cols-2 lg:grid-cols-3 gap-5"
       >
         <CreateIncomes refreshData={() => getIncomelist()} />
+
         {incomelist?.length > 0
-          ? incomelist.map((cash, index) => (
-              <IncomeItem cash={cash} key={index} />
-            ))
-          : [1, 2, 3, 4, 5].map((item, index) => (
+          ? <TotalIncome incomelist={incomelist} totalSpend={totalSpend} />
+          : [1, 2, 3, 4, 5].map((_, index) => (
               <div
-                key={index}
-                className="w-full bg-slate-200 rounded-lg
-        h-[150px] animate-pulse"
-              ></div>
+                key={`placeholder-${index}`}
+                className="w-full bg-slate-200 rounded-lg h-[150px] animate-pulse"
+              >
+              </div>
             ))}
       </div>
     </div>

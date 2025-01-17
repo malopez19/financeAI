@@ -7,10 +7,11 @@ import {
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
-function CardInfo({ cashList }) {
+function CardInfo({ cashList, incomeList }) {
   const [totalCash, setTotalCash] = useState(0);
   const [totalSpend, setTotalSpend] = useState(0);
   const [netCash, setNetCash] = useState(0); 
+  const [totalIncome, setTotalIncome] = useState(0);
   
 
   useEffect(() => {
@@ -22,14 +23,20 @@ function CardInfo({ cashList }) {
   const CalculateCardInfo = () => {
     let totalCash_ = 0;
     let totalSpend_ = 0;
+    let totalIncome_ = 0;
+
+    incomeList.forEach((element) => {
+      totalIncome_ = totalIncome_ + element.totalAmountIncome;
+    });
 
     cashList.forEach((element) => {
       totalCash_ = totalCash_ + Number(element.amount);
       totalSpend_ = totalSpend_ + element.totalSpend;
     });
 
-    setTotalCash(totalCash_);
+    setTotalCash(totalCash_ + totalIncome_);
     setTotalSpend(totalSpend_);
+    setTotalIncome(totalIncome_);
     setNetCash(totalCash_ - totalSpend_); 
   };
 
@@ -56,13 +63,13 @@ function CardInfo({ cashList }) {
               </div>
               <ReceiptText className="bg-blue-800 p-3 h-12 w-12 rounded-full text-white" />
             </div>
-            {/* <div className="p-7 border rounded-2xl flex items-center justify-between">
+            <div className="p-7 border rounded-2xl flex items-center justify-between">
               <div>
-                <h2 className="text-sm">No. de Bolsillos</h2>
-                <h2 className="font-bold text-2xl">{cashList?.length}</h2>
+                <h2 className="text-sm">Total ingresos</h2>
+                <h2 className="font-bold text-2xl">${formatNumber(totalIncome)}</h2>
               </div>
               <Wallet className="bg-blue-800 p-3 h-12 w-12 rounded-full text-white" />
-            </div> */}
+            </div>
             <div className="p-7 border rounded-2xl flex items-center justify-between">
               <div>
                 <h2 className="text-sm">Dinero Restante</h2>

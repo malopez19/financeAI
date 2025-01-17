@@ -14,7 +14,7 @@ function CashList() {
     user && getCashList();
   }, [user]);
   /**
-   * used to get cash List
+   * Get all cash list
    */
   const getCashList = async () => {
     const result = await db
