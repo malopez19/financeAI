@@ -9,14 +9,14 @@ import CashItem from "./CashItem";
 
 function CashList() {
   const [cashList, setCashList] = useState([]);
+  const [totalCash, setTotalCash] = useState(0);
+  const [totalSpend, setTotalSpend] = useState(0);
   const { user } = useUser();
+
   useEffect(() => {
     user && getCashList();
   }, [user]);
 
-  /**
-   * Obtener la lista de dinero
-   */
   const getCashList = async () => {
     const result = await db
       .select({
@@ -29,26 +29,28 @@ function CashList() {
       .where(eq(Cash.createdBy, user?.primaryEmailAddress?.emailAddress))
       .groupBy(Cash.id)
       .orderBy(desc(Cash.id));
+    
     setCashList(result);
+
+    const totalCashAmount = result.reduce((acc, cash) => acc + Number(cash.amount), 0);
+    const totalSpendAmount = result.reduce((acc, cash) => acc + cash.totalSpend, 0);
+
+    setTotalCash(totalCashAmount);
+    setTotalSpend(totalSpendAmount);
   };
 
   return (
     <div className="mt-7">
-      <div
-        className="grid grid-cols-1
-        md:grid-cols-2 lg:grid-cols-3 gap-5"
-      >
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         <CreateCash refreshData={() => getCashList()} />
         {cashList?.length > 0
-          ? cashList.map((cash, index) => 
-            <CashItem cash={cash} key={index} />
-          )
-          : [1, 2, 3, 4, 5].map((item, index) => (
+          ? <CashItem id={cashList[0].id} totalCash={totalCash} totalSpend={totalSpend} />
+          : [1, 2, 3, 4, 5].map((_, index) => (
               <div
                 key={index}
-                className="w-full bg-slate-200 rounded-lg
-        h-[150px] animate-pulse"
-              ></div>
+                className="w-full bg-slate-200 rounded-lg h-[150px] animate-pulse"
+              >
+              </div>
             ))}
       </div>
     </div>

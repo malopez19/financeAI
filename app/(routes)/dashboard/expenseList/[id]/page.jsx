@@ -139,7 +139,7 @@ function ExpensesScreen({ params }) {
         md:grid-cols-2 mt-6 gap-5"
       >
         {cashInfo ? (
-          <CashItem cash={cashInfo} />
+          <CashItem id={cashInfo.id} totalCash={cashInfo.amount} totalSpend={cashInfo.totalSpend}/>
         ) : (
           <div
             className="h-[150px] w-full bg-slate-200 
