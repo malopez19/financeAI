@@ -16,11 +16,11 @@ function CardInfo({ cashList, incomeList }) {
 
   useEffect(() => {
     if (cashList.length > 0) {
-      CalculateCardInfo();
+      CalculateCardDisplay();
     }
   }, [cashList]);
 
-  const CalculateCardInfo = () => {
+  const CalculateCardDisplay = () => {
     let totalCash_ = 0;
     let totalSpend_ = 0;
     let totalIncome_ = 0;
