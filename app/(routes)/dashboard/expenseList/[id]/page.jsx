@@ -53,16 +53,15 @@ function ExpensesScreen({ params }) {
       .select({
         ...getTableColumns(Cash),
         totalSpend: sql`sum(${Expenses.amount})`.mapWith(Number),
-        totalItem: sql`count(${Expenses.id})`.mapWith(Number),
       })
       .from(Cash)
       .leftJoin(Expenses, eq(Cash.id, Expenses.cashId))
       .where(eq(Cash.createdBy, user?.primaryEmailAddress?.emailAddress))
-      .where(eq(Cash.id, unwrappedParams.id))
-      .groupBy(Cash.id);
-
+      .groupBy(Cash.id)
+      .orderBy(desc(Cash.id));
+      
     setcashInfo(result[0]);
-    getExpensesList();
+    getExpensesList()
   };
 
   /**

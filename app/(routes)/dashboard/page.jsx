@@ -43,7 +43,7 @@ function Dashboard() {
     const result = await db
       .select({
         ...getTableColumns(Incomes),
-        totalAmountIncome: sql`sum(CAST(${Incomes.amount} AS numeric))`.mapWith(
+        totalAmountIncome: sql`sum((${Incomes.amount}))`.mapWith(
           Number
         ),
       })
