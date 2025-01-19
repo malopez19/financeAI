@@ -7,15 +7,29 @@ import moment from "moment";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
-function AddExpense({ cashId, refreshData }) {
+function AddExpense({ cashId, totalCash, totalSpend, refreshData }) {
   const [accountNumber, setAccountNumber] = useState("");
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
+
   /**
    * Usado para agregar nuevo gasto
    */
   const addNewExpense = async () => {
+    // Calcular totalCash
+    const remainingCash = totalCash - totalSpend;
+
+    if (amount > totalCash) {
+      toast.error("El monto ingresado es mayor que el dinero total disponible.");
+      return;
+    }
+
+    if (amount > remainingCash) {
+      toast.error("El monto ingresado es mayor al dinero restante.");
+      return;
+    }
+
     setLoading(true);
     const result = await db
       .insert(Expenses)
@@ -24,7 +38,7 @@ function AddExpense({ cashId, refreshData }) {
         name: description,
         amount: amount,
         cashId: cashId,
-        createdAt: moment().format("DD/MM/yyy"),
+        createdAt: moment().format("DD/MM/yyyy"),
       })
       .returning({ insertedId: Cash.id });
 
@@ -39,6 +53,7 @@ function AddExpense({ cashId, refreshData }) {
     }
     setLoading(false);
   };
+
   return (
     <div className="border p-5 rounded-2xl">
       <h2 className="font-bold text-lg">Agregar Transferencia</h2>

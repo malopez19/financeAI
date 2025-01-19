@@ -65,13 +65,6 @@ function CardInfo({ cashList, incomeList }) {
             </div>
             <div className="p-7 border rounded-2xl flex items-center justify-between">
               <div>
-                <h2 className="text-sm">Total ingresos</h2>
-                <h2 className="font-bold text-2xl">${formatNumber(totalIncome)}</h2>
-              </div>
-              <Wallet className="bg-blue-800 p-3 h-12 w-12 rounded-full text-white" />
-            </div>
-            <div className="p-7 border rounded-2xl flex items-center justify-between">
-              <div>
                 <h2 className="text-sm">Dinero Restante</h2>
                 <h2 className="font-bold text-2xl">
                   ${formatNumber(netCash)}

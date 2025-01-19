@@ -148,7 +148,8 @@ function ExpensesScreen({ params }) {
 
         <AddExpense
           cashId={unwrappedParams?.id}
-          user={user}
+          totalCash={cashInfo?.amount}
+          totalSpend={cashInfo?.totalSpend}
           refreshData={() => getCashInfo()}
         />
       </div>
