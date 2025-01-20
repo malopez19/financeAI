@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   DialogClose,
@@ -16,29 +16,70 @@ import { db } from "@/lib/dbConfig";
 import { Cash } from "@/lib/schema";
 import { useUser } from "@clerk/nextjs";
 import { toast } from "sonner";
+import { eq } from "drizzle-orm";
 
 function CreateCash({ refreshData }) {
-  const [amount, setAmount] = useState();
-
+  const [amount, setAmount] = useState("");
+  const [existingCash, setExistingCash] = useState(null);
   const { user } = useUser();
 
-  /**
-   * Usado para crear nuevo campo de dinero
-   */
-  const onCreateCash = async () => {
-    const result = await db
-      .insert(Cash)
-      .values({
-        amount: amount,
-        createdBy: user?.primaryEmailAddress?.emailAddress,
-      })
-      .returning({ insertedId: Cash.id });
+  useEffect(() => {
+    if (user) {
+      checkExistingCash();
+    }
+  }, [user]);
 
-    if (result) {
-      refreshData();
-      toast("Nuevo dinero ingresado!");
+  /**
+   * Verificar si ya existe un registro de dinero
+   */
+  const checkExistingCash = async () => {
+    const result = await db
+      .select()
+      .from(Cash)
+      .where(eq(Cash.createdBy, user?.primaryEmailAddress?.emailAddress))
+      .limit(1);
+
+    if (result.length > 0) {
+      setExistingCash(result[0]);
     }
   };
+
+  /**
+   * Usado para crear o actualizar el campo de dinero
+   */
+  const onCreateCash = async () => {
+    if (existingCash) {
+      // Actualizar el registro existente
+      const newAmount = Number(existingCash.amount) + Number(amount);
+      const result = await db
+        .update(Cash)
+        .set({ amount: newAmount })
+        .where(eq(Cash.id, existingCash.id))
+        .returning();
+
+      if (result.length > 0) {
+        setExistingCash(result[0]);
+        refreshData();
+        toast("Dinero actualizado!");
+      }
+    } else {
+      // Crear un nuevo registro
+      const result = await db
+        .insert(Cash)
+        .values({
+          amount: amount,
+          createdBy: user?.primaryEmailAddress?.emailAddress,
+        })
+        .returning();
+
+      if (result.length > 0) {
+        setExistingCash(result[0]);
+        refreshData();
+        toast("Nuevo dinero ingresado!");
+      }
+    }
+  };
+
   return (
     <div>
       <Dialog>
@@ -62,6 +103,7 @@ function CreateCash({ refreshData }) {
                   <Input
                     type="number"
                     placeholder="e.g. $10000"
+                    value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                   />
                 </div>
@@ -71,7 +113,7 @@ function CreateCash({ refreshData }) {
           <DialogFooter className="sm:justify-start">
             <DialogClose asChild>
               <Button
-                disabled={!( amount)}
+                disabled={!amount}
                 onClick={() => onCreateCash()}
                 className="mt-5 w-full rounded-full"
               >

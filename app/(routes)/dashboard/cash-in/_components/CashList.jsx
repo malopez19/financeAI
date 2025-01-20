@@ -43,6 +43,7 @@ function CashList() {
     <div className="mt-7">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         <CreateCash refreshData={() => getCashList()} />
+        
         {cashList?.length > 0
           ? <CashItem id={cashList[0].id} totalCash={totalCash} totalSpend={totalSpend} />
           : [1, 2, 3, 4, 5].map((_, index) => (
