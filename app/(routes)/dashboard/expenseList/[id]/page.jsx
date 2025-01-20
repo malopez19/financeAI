@@ -6,7 +6,6 @@ import { desc, eq, getTableColumns, sql } from "drizzle-orm";
 import React, { useEffect, useState } from "react";
 import CashItem from "../../cash-in/_components/CashItem";
 import AddExpense from "../_components/AddExpense";
-import ExpenseListTable from "../_components/ExpenseListTable";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Trash } from "lucide-react";
 import {
@@ -22,12 +21,11 @@ import {
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import EditCash from "../_components/EditCash";
+
 
 function ExpensesScreen({ params }) {
   const { user } = useUser();
   const [cashInfo, setcashInfo] = useState();
-  const [expensesList, setExpensesList] = useState([]);
   const [unwrappedParams, setUnwrappedParams] = useState(null);
   const route = useRouter();
 
@@ -61,20 +59,6 @@ function ExpensesScreen({ params }) {
       .orderBy(desc(Cash.id));
       
     setcashInfo(result[0]);
-    getExpensesList()
-  };
-
-  /**
-   * Obtener ultimas transferencias
-   */
-  const getExpensesList = async () => {
-    const result = await db
-      .select()
-      .from(Expenses)
-      .where(eq(Expenses.cashId, unwrappedParams.id))
-      .orderBy(desc(Expenses.id));
-    setExpensesList(result);
-    console.log(result);
   };
 
   /**
@@ -105,8 +89,6 @@ function ExpensesScreen({ params }) {
         </span>
 
         <div className="flex gap-2 items-center">
-          <EditCash cashInfo={cashInfo} refreshData={() => getCashInfo()} />
-
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button className="flex gap-2 rounded-full" variant="destructive">
@@ -150,12 +132,6 @@ function ExpensesScreen({ params }) {
           cashId={unwrappedParams?.id}
           totalCash={cashInfo?.amount}
           totalSpend={cashInfo?.totalSpend}
-          refreshData={() => getCashInfo()}
-        />
-      </div>
-      <div className="mt-4">
-        <ExpenseListTable
-          expensesList={expensesList}
           refreshData={() => getCashInfo()}
         />
       </div>

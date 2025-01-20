@@ -17,8 +17,7 @@ function CashItem({ id, totalCash, totalSpend }) {
               💰
             </h2>
             <div>
-              <h2 className="font-bold">Total Cash</h2>
-              <h2 className="text-sm text-gray-500">Total Items</h2>
+              <h3 className="font-bold">Dinero Total:</h3>
             </div>
           </div>
           <h2 className="font-bold text-primary text-lg">${formatNumber(totalCash)}</h2>

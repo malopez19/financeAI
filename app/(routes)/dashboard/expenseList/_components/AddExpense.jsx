@@ -17,15 +17,14 @@ function AddExpense({ cashId, totalCash, totalSpend, refreshData }) {
    * Usado para agregar nuevo gasto
    */
   const addNewExpense = async () => {
-    // Calcular totalCash
     const remainingCash = totalCash - totalSpend;
 
-    if (amount > totalCash) {
+    if (parseFloat(amount) > totalCash) {
       toast.error("El monto ingresado es mayor que el dinero total disponible.");
       return;
     }
 
-    if (amount > remainingCash) {
+    if (parseFloat(amount) > remainingCash) {
       toast.error("El monto ingresado es mayor al dinero restante.");
       return;
     }
@@ -60,7 +59,7 @@ function AddExpense({ cashId, totalCash, totalSpend, refreshData }) {
       <div className="mt-2">
         <div className="text-black font-medium my-1">Numero de cuenta</div>
         <Input
-          placeholder="e.g. 123456789"
+          placeholder="e.g. 62315975"
           type="number"
           value={accountNumber}
           onChange={(e) => setAccountNumber(e.target.value)}
