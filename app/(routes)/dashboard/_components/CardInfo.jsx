@@ -7,11 +7,10 @@ import {
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
-function CardInfo({ cashList, incomeList }) {
+function CardInfo({ cashList }) {
   const [totalCash, setTotalCash] = useState(0);
   const [totalSpend, setTotalSpend] = useState(0);
   const [netCash, setNetCash] = useState(0); 
-  const [totalIncome, setTotalIncome] = useState(0);
   
 
   useEffect(() => {
@@ -23,20 +22,14 @@ function CardInfo({ cashList, incomeList }) {
   const CalculateCardDisplay = () => {
     let totalCash_ = 0;
     let totalSpend_ = 0;
-    let totalIncome_ = 0;
-
-    incomeList.forEach((element) => {
-      totalIncome_ = totalIncome_ + element.totalAmountIncome;
-    });
 
     cashList.forEach((element) => {
       totalCash_ = totalCash_ + Number(element.amount);
       totalSpend_ = totalSpend_ + element.totalSpend;
     });
 
-    setTotalCash(totalCash_ + totalIncome_);
+    setTotalCash(totalCash_);
     setTotalSpend(totalSpend_);
-    setTotalIncome(totalIncome_);
     setNetCash(totalCash_ - totalSpend_); 
   };
 
@@ -76,7 +69,7 @@ function CardInfo({ cashList, incomeList }) {
         </div>
       ) : (
         <div className="mt-7 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {[1, 2, 3].map((item, index) => (
+          {[1, 2, 3].map((_, index) => (
             <div
               className="h-[110px] w-full bg-slate-200 animate-pulse rounded-lg"
               key={index}

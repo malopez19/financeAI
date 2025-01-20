@@ -18,7 +18,7 @@ function CashItem({ totalCash, totalSpend }) {
             <h3 className="font-bold">Dinero Total:</h3>
           </div>
         </div>
-        <h2 className="font-bold text-primary text-lg">${formatNumber(totalCash)}</h2>
+        <h2 className="font-bold text-primary text-2xl">${formatNumber(totalCash)}</h2>
       </div>
 
       <div className="mt-14">

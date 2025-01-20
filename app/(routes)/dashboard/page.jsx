@@ -33,25 +33,11 @@ function Dashboard() {
       .orderBy(desc(Cash.id));
 
     setCashList(result);
-    getIncomeList();
   };
 
   /**
    * Get Income stream list
    */
-  const getIncomeList = async () => {
-    const result = await db
-      .select({
-        ...getTableColumns(Incomes),
-        totalAmountIncome: sql`sum((${Incomes.amount}))`.mapWith(
-          Number
-        ),
-      })
-      .from(Incomes)
-      .groupBy(Incomes.id); // Assuming you want to group by ID or any other relevant column
-
-    setIncomeList(result);
-  };
 
   return (
     <div className="p-8 bg-">
