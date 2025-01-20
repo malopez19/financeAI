@@ -5,9 +5,9 @@ import { useUser } from "@clerk/nextjs";
 import { desc, eq, getTableColumns, sql } from "drizzle-orm";
 import React, { useEffect, useState } from "react";
 import CashItem from "../../cash-in/_components/CashItem";
-import AddExpense from "../_components/AddExpense";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Trash } from "lucide-react";
+import AddTransfer from "../_components/AddTransfer";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -128,7 +128,7 @@ function ExpensesScreen({ params }) {
           ></div>
         )}
 
-        <AddExpense
+        <AddTransfer
           cashId={unwrappedParams?.id}
           totalCash={cashInfo?.amount}
           totalSpend={cashInfo?.totalSpend}

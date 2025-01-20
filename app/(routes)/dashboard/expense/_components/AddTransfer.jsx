@@ -7,7 +7,7 @@ import moment from "moment";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
-function AddExpense({ cashId, totalCash, totalSpend, refreshData }) {
+function AddTransfer({ cashId, totalCash, totalSpend, refreshData }) {
   const [accountNumber, setAccountNumber] = useState("");
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
@@ -16,7 +16,7 @@ function AddExpense({ cashId, totalCash, totalSpend, refreshData }) {
   /**
    * Usado para agregar nuevo gasto
    */
-  const addNewExpense = async () => {
+  const addNewTransfer = async () => {
     const remainingCash = totalCash - totalSpend;
 
     if (parseFloat(amount) > totalCash) {
@@ -85,7 +85,7 @@ function AddExpense({ cashId, totalCash, totalSpend, refreshData }) {
       </div>
       <Button
         disabled={!(accountNumber && amount) || loading}
-        onClick={() => addNewExpense()}
+        onClick={() => addNewTransfer()}
         className="mt-3 w-full rounded-full"
       >
         {loading ? <Loader className="animate-spin" /> : "Enviar transferencia"}
@@ -94,4 +94,4 @@ function AddExpense({ cashId, totalCash, totalSpend, refreshData }) {
   );
 }
 
-export default AddExpense;
+export default AddTransfer;
