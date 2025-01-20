@@ -66,7 +66,7 @@ function AddExpense({ cashId, totalCash, totalSpend, refreshData }) {
         />
       </div>
       <div className="mt-2">
-        <div className="text-black font-medium my-1">Descripcion</div>
+        <div className="text-black font-medium my-1">Concepto</div>
         <Input
           placeholder="e.g. Gasto en comida"
           type="text"
