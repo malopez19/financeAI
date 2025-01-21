@@ -19,6 +19,11 @@ function AddTransfer({ cashId, totalCash, totalSpend, refreshData }) {
   const addNewTransfer = async () => {
     const remainingCash = totalCash - totalSpend;
 
+    if(parseFloat(amount) <= 0) {
+      toast.error("El monto ingresado debe ser mayor a 0.");
+      return;
+    }
+
     if (parseFloat(amount) > totalCash) {
       toast.error("El monto ingresado es mayor que el dinero total disponible.");
       return;
