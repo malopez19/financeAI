@@ -4,13 +4,11 @@ import { useUser } from "@clerk/nextjs";
 import CardInfo from "./_components/CardInfo";
 import { db } from "@/lib/dbConfig";
 import { desc, eq, getTableColumns, sql } from "drizzle-orm";
-import { Cash, Expenses, Incomes } from "@/lib/schema";
+import { Cash, Expenses } from "@/lib/schema";
 
 function Dashboard() {
   const { user } = useUser();
-
   const [cashList, setCashList] = useState([]);
-  const [incomeList, setIncomeList] = useState([]);
 
   useEffect(() => {
     user && getCashList();
@@ -36,7 +34,7 @@ function Dashboard() {
   };
 
   /**
-   * Get Income stream list
+   * componente que muestra la informacion de los ingresos
    */
 
   return (
@@ -46,7 +44,7 @@ function Dashboard() {
         Que esta pasando con tu dinero, administra tus finanzas.
       </p>
 
-      <CardInfo cashList={cashList} incomeList={incomeList}/>
+      <CardInfo cashList={cashList}/>
     </div>
   );
 }

@@ -2,7 +2,6 @@ import formatNumber from "@/lib";
 import {
   PiggyBank,
   ReceiptText,
-  Wallet,
   CircleDollarSign,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";

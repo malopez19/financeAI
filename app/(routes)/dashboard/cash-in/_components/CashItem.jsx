@@ -15,10 +15,10 @@ function CashItem({ totalCash, totalSpend }) {
             💰
           </h2>
           <div>
-            <h3 className="font-bold">Dinero Total:</h3>
+            <h3 className="font-bold">Dinero Restante:</h3>
           </div>
         </div>
-        <h2 className="font-bold text-primary text-2xl">${formatNumber(totalCash)}</h2>
+        <h2 className="font-bold text-primary text-2xl">${formatNumber(totalCash - totalSpend)}</h2>
       </div>
 
       <div className="mt-14">
@@ -27,7 +27,7 @@ function CashItem({ totalCash, totalSpend }) {
             ${totalSpend ? totalSpend : 0} Gastado
           </h2>
           <h2 className="text-sm text-slate-400">
-            ${totalCash - totalSpend} Restante
+            ${totalCash} Ingresado
           </h2>
         </div>
         <div className="w-full bg-slate-300 h-2 rounded-full">

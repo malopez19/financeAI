@@ -32,6 +32,7 @@ function ExpensesScreen() {
 
     setExpensesList(result);
   };
+  
   return (
     <div className="p-10">
       <h2 className="font-bold text-3xl">Mis Transferencias</h2>

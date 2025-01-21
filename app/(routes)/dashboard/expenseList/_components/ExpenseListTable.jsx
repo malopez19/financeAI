@@ -1,21 +1,7 @@
-import { db } from "@/lib/dbConfig";
-import { Expenses } from "@/lib/schema";
-import { eq } from "drizzle-orm";
 import React from "react";
-import { toast } from "sonner";
 
-function ExpenseListTable({ expensesList, refreshData }) {
-  const deleteExpense = async (expense) => {
-    const result = await db
-      .delete(Expenses)
-      .where(eq(Expenses.id, expense.id))
-      .returning();
-
-    if (result) {
-      toast("Transferencia eliminada!");
-      refreshData();
-    }
-  };
+function ExpenseListTable({ expensesList }) {
+  
   return (
     <div className="mt-3">
       <h2 className="font-bold text-lg">Ultimas Transferencias</h2>
