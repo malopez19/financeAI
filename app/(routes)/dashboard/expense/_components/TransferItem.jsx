@@ -17,10 +17,10 @@ function TransferItem({ id, totalCash, totalSpend }) {
               💰
             </h2>
             <div>
-              <h3 className="font-bold">Dinero Ingresado:</h3>
+              <h3 className="font-bold">Dinero restante:</h3>
             </div>
           </div>
-          <h2 className="font-bold text-primary text-lg">${formatNumber(totalCash)}</h2>
+          <h2 className="font-bold text-primary text-lg">${formatNumber(totalCash - totalSpend)}</h2>
         </div>
 
         <div className="mt-5">
@@ -29,7 +29,7 @@ function TransferItem({ id, totalCash, totalSpend }) {
               ${totalSpend ? totalSpend : 0} Gastado
             </h2>
             <h2 className="text-xs text-slate-400">
-              ${totalCash - totalSpend} Restante
+              $ {totalCash} ingresado
             </h2>
           </div>
           <div className="w-full bg-slate-300 h-2 rounded-full">
