@@ -18,11 +18,6 @@ function Header() {
         <UserButton />
       ) : (
         <div className="flex gap-3  items-center ">
-          <Link href={"/dashboard"}>
-            <Button variant="outline" className="rounded-full">
-              Ir al Panel
-            </Button>
-          </Link>
           <Link href={"/sign-in"}>
             <Button className="bg-amber-500 hover:bg-amber-400 rounded-full">Empezar</Button>
           </Link>
