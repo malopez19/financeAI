@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { ContainerScroll } from "../../components/ui/container-scroll-animation";
+import imgDashboard from "../../public/dashboard.png";
 
 function Hero() {
   return (
@@ -19,7 +20,7 @@ function Hero() {
           }
         >
           <Image
-            src={`/dashboard.png`}
+            src={imgDashboard}
             alt="imagen dashboard"
             height={720}
             width={1400}
