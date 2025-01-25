@@ -7,6 +7,8 @@ function CashItem({ totalCash, totalSpend }) {
     return perc > 100 ? 100 : perc.toFixed(2);
   };
 
+  const remainingCash = parseFloat(totalCash - totalSpend);
+  
   return (
     <div className="p-5 border rounded-2xl h-[200px]">
       <div className="flex gap-2 items-center justify-between">
@@ -18,7 +20,7 @@ function CashItem({ totalCash, totalSpend }) {
             <h3 className="font-bold">Dinero Restante:</h3>
           </div>
         </div>
-        <h2 className="font-bold text-primary text-2xl">${formatNumber(totalCash - totalSpend)}</h2>
+        <h2 className="font-bold text-primary text-2xl">${formatNumber(remainingCash)}</h2>
       </div>
 
       <div className="mt-14">

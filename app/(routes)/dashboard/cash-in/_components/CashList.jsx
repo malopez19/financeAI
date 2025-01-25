@@ -1,57 +1,54 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import CreateCash from "./CreateCash";
-import { db } from "@/lib/dbConfig";
-import { desc, eq, getTableColumns, sql } from "drizzle-orm";
-import { Cash, Expenses } from "@/lib/schema";
 import { useUser } from "@clerk/nextjs";
 import CashItem from "./CashItem";
 
 function CashList() {
   const [cashList, setCashList] = useState([]);
-  const [totalCash, setTotalCash] = useState(0);
-  const [totalSpend, setTotalSpend] = useState(0);
   const { user } = useUser();
 
   useEffect(() => {
-    user && getCashList();
+    if (user) {
+      getCashList();
+    }
   }, [user]);
 
+  /**
+   * Obtener la lista de dineros a través de la API
+   */
   const getCashList = async () => {
-    const result = await db
-      .select({
-        ...getTableColumns(Cash),
-        totalSpend: sql`sum(${Expenses.amount})`.mapWith(Number),
-        totalItem: sql`count(${Expenses.id})`.mapWith(Number),
-      })
-      .from(Cash)
-      .leftJoin(Expenses, eq(Cash.id, Expenses.cashId))
-      .where(eq(Cash.createdBy, user?.primaryEmailAddress?.emailAddress))
-      .groupBy(Cash.id)
-      .orderBy(desc(Cash.id));
-    
-    setCashList(result);
+    try {
+      const response = await fetch(`http://localhost:3000/api/cashList`, { method: "GET" });
+      if (!response.ok) {
+        throw new Error(`Error al obtener la lista de dineros`);
+      }
 
-    const totalCashAmount = result.reduce((acc, cash) => acc + Number(cash.amount), 0);
-    const totalSpendAmount = result.reduce((acc, cash) => acc + cash.totalSpend, 0);
-
-    setTotalCash(totalCashAmount);
-    setTotalSpend(totalSpendAmount);
+      const data = await response.json();
+      setCashList(data);
+    } catch (error) {
+      console.error("Error al obtener la lista de dineros:", error);
+    }
   };
 
   return (
     <div className="mt-7">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         <CreateCash refreshData={() => getCashList()} />
-        
+
         {cashList?.length > 0
-          ? <CashItem id={cashList[0].id} totalCash={totalCash} totalSpend={totalSpend} />
+          ? cashList.map((item) => (
+              <CashItem 
+                key={item.id}
+                totalCash={item.amount} 
+                totalSpend={item.totalSpend}
+              />
+            ))
           : [1, 2, 3, 4, 5].map((_, index) => (
               <div
                 key={index}
                 className="w-full bg-slate-200 rounded-lg h-[150px] animate-pulse"
-              >
-              </div>
+              ></div>
             ))}
       </div>
     </div>
