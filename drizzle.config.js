@@ -3,8 +3,7 @@ export default {
   schema: "./lib/schema.jsx",
   out: "./drizzle",
   dbCredentials: {
-    url: "postgresql://neondb_owner:CqNId0ZYa2Um@ep-purple-waterfall-a84w0fr2.eastus2.azure.neon.tech/neondb?sslmode=require",
-    connectionString:
-      "postgresql://neondb_owner:CqNId0ZYa2Um@ep-purple-waterfall-a84w0fr2.eastus2.azure.neon.tech/neondb?sslmode=require",
+    url: process.env.NEXT_PUBLIC_DATABASE_URL,
+    connectionString: process.env.NEXT_PUBLIC_DATABASE_URL,
   },
 };
