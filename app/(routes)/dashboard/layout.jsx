@@ -2,27 +2,34 @@
 import React, { useEffect } from "react";
 import SideNav from "./_components/SideNav";
 import DashboardHeader from "./_components/DashboardHeader";
-import { db } from "@/lib/dbConfig";
-import { Cash } from "@/lib/schema";
 import { useUser } from "@clerk/nextjs";
-import { eq } from "drizzle-orm";
 import { useRouter } from "next/navigation";
 
 function DashboardLayout({ children }) {
   const { user } = useUser();
   const router = useRouter();
+
   useEffect(() => {
-    user && checkUserCash();
+    if (user) {
+      checkUserCash();
+    }
   }, [user]);
 
   const checkUserCash = async () => {
-    const result = await db
-      .select()
-      .from(Cash)
-      .where(eq(Cash.createdBy, user?.primaryEmailAddress?.emailAddress));
-      
-    if (result?.length == 0) {
-      router.replace("/dashboard/cash-in");
+    try {
+      const response = await fetch("/api/check-user-cash", { method: "GET" });
+
+      if (!response.ok) {
+        throw new Error("Error al verificar el cash del usuario");
+      }
+
+      const result = await response.json();
+
+      if (result.length === 0) {
+        router.replace("/dashboard/cash-in");
+      }
+    } catch (error) {
+      console.error("Error al verificar el cash del usuario:", error.message);
     }
   };
   return (
