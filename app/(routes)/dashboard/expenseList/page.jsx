@@ -11,26 +11,26 @@ function ExpensesScreen() {
   const { user } = useUser();
 
   useEffect(() => {
-    user && getAllExpenses();
+    if (user) {
+      getAllExpenses();
+    }
   }, [user]);
   /**
    * Used to get All expenses belong to users
    */
   const getAllExpenses = async () => {
-    const result = await db
-      .select({
-        id: Expenses.id,
-        accountNumber: Expenses.accountNumber,
-        name: Expenses.name,
-        amount: Expenses.amount,
-        createdAt: Expenses.createdAt,
-      })
-      .from(Cash)
-      .rightJoin(Expenses, eq(Cash.id, Expenses.cashId))
-      .where(eq(Cash.createdBy, user?.primaryEmailAddress.emailAddress))
-      .orderBy(desc(Expenses.id));
+    try {
+      const response = await fetch("/api/all-expenses", { method: "GET" });
 
-    setExpensesList(result);
+      if (!response.ok) {
+        throw new Error("Error al obtener los gastos");
+      }
+
+      const result = await response.json();
+      setExpensesList(result);
+    } catch (error) {
+      console.error("Error al obtener los gastos:", error.message);
+    }
   };
   
   return (
