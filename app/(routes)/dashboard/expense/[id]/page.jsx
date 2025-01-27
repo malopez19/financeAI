@@ -1,8 +1,5 @@
 "use client";
-import { db } from "@/lib/dbConfig";
-import { Cash, Expenses } from "@/lib/schema";
 import { useUser } from "@clerk/nextjs";
-import { desc, eq, getTableColumns, sql } from "drizzle-orm";
 import React, { useEffect, useState } from "react";
 import CashItem from "../../cash-in/_components/CashItem";
 import { Button } from "@/components/ui/button";
@@ -25,7 +22,7 @@ import { useRouter } from "next/navigation";
 
 function ExpensesScreen({ params }) {
   const { user } = useUser();
-  const [cashInfo, setcashInfo] = useState();
+  const [cashInfo, setCashInfo] = useState();
   const [unwrappedParams, setUnwrappedParams] = useState(null);
   const route = useRouter();
 
@@ -46,38 +43,44 @@ function ExpensesScreen({ params }) {
    */
   const getCashInfo = async () => {
     if (!unwrappedParams) return;
-    
-    const result = await db
-      .select({
-        ...getTableColumns(Cash),
-        totalSpend: sql`sum(${Expenses.amount})`.mapWith(Number),
-      })
-      .from(Cash)
-      .leftJoin(Expenses, eq(Cash.id, Expenses.cashId))
-      .where(eq(Cash.createdBy, user?.primaryEmailAddress?.emailAddress))
-      .groupBy(Cash.id)
-      .orderBy(desc(Cash.id));
-      
-    setcashInfo(result[0]);
+
+    try {
+      const response = await fetch(`/api/transfer-id?cashId=${unwrappedParams.id}`, { method: "GET" });
+
+      if (!response.ok) {
+        throw new Error("Error al obtener la información del dinero");
+      }
+
+      const result = await response.json();
+      setCashInfo(result);
+    } catch (error) {
+      console.error("Error al obtener la información del dinero:", error.message);
+    }
   };
 
   /**
    * Eliminar bolsillo
    */
   const deleteCash = async () => {
-    const deleteExpenseResult = await db
-      .delete(Expenses)
-      .where(eq(Expenses.cashId, unwrappedParams.id))
-      .returning();
+    try {
+      const response = await fetch("/api/transfer-id", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ cashId: unwrappedParams.id }),
+      });
 
-    if (deleteExpenseResult) {
-      const result = await db
-        .delete(Cash)
-        .where(eq(Cash.id, unwrappedParams.id))
-        .returning();
+      if (!response.ok) {
+        throw new Error("Error al eliminar el bolsillo");
+      }
+
+      toast("Bolsillo Eliminado!");
+      route.replace("/dashboard/cash-in");
+    } catch (error) {
+      console.error("Error al eliminar el bolsillo:", error.message);
+      toast("Error al eliminar el bolsillo");
     }
-    toast("Bolsillo Eliminado!");
-    route.replace("/dashboard/cash-in");
   };
 
   return (

@@ -1,8 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { db } from "@/lib/dbConfig";
-import { desc, eq, getTableColumns, sql } from "drizzle-orm";
-import { Cash, Expenses } from "@/lib/schema";
 import { useUser } from "@clerk/nextjs";
 import TransferItem from "./TransferItem";
 
@@ -13,29 +10,30 @@ function TransferList() {
   const { user } = useUser();
 
   useEffect(() => {
-    user && getCashList();
+    if (user) {
+      getCashList();
+    }
   }, [user]);
 
   const getCashList = async () => {
-    const result = await db
-      .select({
-        ...getTableColumns(Cash),
-        totalSpend: sql`sum(${Expenses.amount})`.mapWith(Number),
-        totalItem: sql`count(${Expenses.id})`.mapWith(Number),
-      })
-      .from(Cash)
-      .leftJoin(Expenses, eq(Cash.id, Expenses.cashId))
-      .where(eq(Cash.createdBy, user?.primaryEmailAddress?.emailAddress))
-      .groupBy(Cash.id)
-      .orderBy(desc(Cash.id));
-    
-    setCashList(result);
+    try {
+      const response = await fetch("/api/transfer", { method: "GET" });
 
-    const totalCashAmount = result.reduce((acc, cash) => acc + Number(cash.amount), 0);
-    const totalSpendAmount = result.reduce((acc, cash) => acc + cash.totalSpend, 0);
+      if (!response.ok) {
+        throw new Error("Error al obtener la lista de transferencias");
+      }
 
-    setTotalCash(totalCashAmount);
-    setTotalSpend(totalSpendAmount);
+      const result = await response.json();
+      setCashList(result);
+
+      const totalCashAmount = result.reduce((acc, cash) => acc + Number(cash.amount), 0);
+      const totalSpendAmount = result.reduce((acc, cash) => acc + cash.totalSpend, 0);
+
+      setTotalCash(totalCashAmount);
+      setTotalSpend(totalSpendAmount);
+    } catch (error) {
+      console.error("Error al obtener la lista de transferencias:", error.message);
+    }
   };
 
   return (

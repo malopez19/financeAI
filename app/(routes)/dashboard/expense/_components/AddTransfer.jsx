@@ -1,9 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { db } from "@/lib/dbConfig";
-import { Cash, Expenses } from "@/lib/schema";
 import { Loader } from "lucide-react";
-import moment from "moment";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
@@ -19,7 +16,7 @@ function AddTransfer({ cashId, totalCash, totalSpend, refreshData }) {
   const addNewTransfer = async () => {
     const remainingCash = totalCash - totalSpend;
 
-    if(parseFloat(amount) <= 0) {
+    if (parseFloat(amount) <= 0) {
       toast.error("El monto ingresado debe ser mayor a 0.");
       return;
     }
@@ -35,27 +32,32 @@ function AddTransfer({ cashId, totalCash, totalSpend, refreshData }) {
     }
 
     setLoading(true);
-    const result = await db
-      .insert(Expenses)
-      .values({
-        accountNumber: accountNumber,
-        name: description,
-        amount: amount,
-        cashId: cashId,
-        createdAt: moment().format("DD/MM/yyyy"),
-      })
-      .returning({ insertedId: Cash.id });
+    try {
+      const response = await fetch("/api/transfer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ accountNumber, description, amount, cashId, totalCash, totalSpend }),
+      });
 
-    setAmount("");
-    setDescription("");
-    setAccountNumber("");
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Error al procesar la solicitud: ${errorText}`);
+      }
 
-    if (result) {
-      setLoading(false);
+      const result = await response.json();
+      setAmount("");
+      setDescription("");
+      setAccountNumber("");
       refreshData();
       toast("Nueva transferencia enviada!");
+    } catch (error) {
+      console.error("Error al procesar la solicitud:", error.message);
+      toast("Error al procesar la solicitud");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
