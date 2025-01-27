@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogClose,
@@ -12,71 +12,34 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { db } from "@/lib/dbConfig";
-import { Cash } from "@/lib/schema";
-import { useUser } from "@clerk/nextjs";
 import { toast } from "sonner";
-import { eq } from "drizzle-orm";
 
 function CreateCash({ refreshData }) {
   const [amount, setAmount] = useState("");
-  const [existingCash, setExistingCash] = useState(null);
-  const { user } = useUser();
-
-  useEffect(() => {
-    if (user) {
-      checkExistingCash();
-    }
-  }, [user]);
-
-  /**
-   * Verificar si ya existe un registro de dinero
-   */
-  const checkExistingCash = async () => {
-    const result = await db
-      .select()
-      .from(Cash)
-      .where(eq(Cash.createdBy, user?.primaryEmailAddress?.emailAddress))
-      .limit(1);
-
-    if (result.length > 0) {
-      setExistingCash(result[0]);
-    }
-  };
 
   /**
    * Usado para crear o actualizar el campo de dinero
    */
   const onCreateCash = async () => {
-    if (existingCash) {
-      // Actualizar el registro existente
-      const newAmount = Number(existingCash.amount) + Number(amount);
-      const result = await db
-        .update(Cash)
-        .set({ amount: newAmount })
-        .where(eq(Cash.id, existingCash.id))
-        .returning();
+    try {
+      const response = await fetch("/api/cash-in", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount }),
+      });
 
-      if (result.length > 0) {
-        setExistingCash(result[0]);
-        refreshData();
-        toast("Dinero actualizado!");
+      if (!response.ok) {
+        throw new Error("Error al procesar la solicitud");
       }
-    } else {
-      // Crear un nuevo registro
-      const result = await db
-        .insert(Cash)
-        .values({
-          amount: amount,
-          createdBy: user?.primaryEmailAddress?.emailAddress,
-        })
-        .returning();
 
-      if (result.length > 0) {
-        setExistingCash(result[0]);
-        refreshData();
-        toast("Nuevo dinero ingresado!");
-      }
+      const result = await response.json();
+      refreshData();
+      toast("Dinero actualizado!");
+    } catch (error) {
+      console.error("Error al procesar la solicitud:", error.message);
+      toast("Error al procesar la solicitud");
     }
   };
 
