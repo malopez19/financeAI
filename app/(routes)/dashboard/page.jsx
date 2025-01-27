@@ -2,9 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import CardInfo from "./_components/CardInfo";
-import { db } from "@/lib/dbConfig";
-import { desc, eq, getTableColumns, sql } from "drizzle-orm";
-import { Cash, Expenses } from "@/lib/schema";
 
 function Dashboard() {
   const { user } = useUser();
@@ -15,22 +12,20 @@ function Dashboard() {
   }, [user]);
 
   /**
-   * utilizado para obtener Lista de dineros
+   * Obtener la lista de dineros a través de la API
    */
   const getCashList = async () => {
-    const result = await db
-      .select({
-        ...getTableColumns(Cash),
-        totalSpend: sql`sum(${Expenses.amount})`.mapWith(Number),
-        totalItem: sql`count(${Expenses.id})`.mapWith(Number),
-      })
-      .from(Cash)
-      .leftJoin(Expenses, eq(Cash.id, Expenses.cashId))
-      .where(eq(Cash.createdBy, user?.primaryEmailAddress?.emailAddress))
-      .groupBy(Cash.id)
-      .orderBy(desc(Cash.id));
+    try {
+      const response = await fetch(`/api/cash-in`, { method: "GET" });
+      if (!response.ok) {
+        throw new Error(`Error al obtener la lista de dineros`);
+      }
 
-    setCashList(result);
+      const data = await response.json();
+      setCashList(data);
+    } catch (error) {
+      console.error("Error al obtener la lista de dineros:", error);
+    }
   };
 
   /**

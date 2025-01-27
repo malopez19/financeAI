@@ -5,7 +5,6 @@ import { Cash, Expenses } from "@/lib/schema";
 import { currentUser } from "@clerk/nextjs/server";
 
 export const GET = async () => {
-
   try {
     // Obtener usuario autenticado con Clerk y correo electrónico
     const user = await currentUser();
