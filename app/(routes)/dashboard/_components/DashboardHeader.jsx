@@ -8,7 +8,7 @@ function DashboardHeader() {
           
         </div>
         <div>
-            <UserButton afterSignOutUrl='/sign-in'/>
+            <UserButton fallbackRedirectUrl='/sign-in'/>
         </div>
        
     </div>
