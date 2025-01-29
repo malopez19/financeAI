@@ -6,16 +6,18 @@ jest.mock("@clerk/nextjs", () => ({
   SignUp: jest.fn(() => <div data-testid="sign-up-component">Mocked SignUp</div>),
 }));
 
-describe("Page Component", () => {
-  test("se renderiza correctamente", () => {
+describe("componente registrarse", () => {
+  // Verifica que el título esté presente
+  test("se renderiza el parrafo de registrate", () => {
     render(<Page />);
-
-    // Verifica que el título esté presente
     const title = screen.getByText(/Registrate a FinappIA/i);
     expect(title).toBeInTheDocument();
+  });
 
-    // Verifica que el componente SignUp se renderiza
+  // Verifica que el componente SignUp se renderiza
+  test("renderiza el componente sign-up", () => {
+    render(<Page />);
     const signUpComponent = screen.getByTestId("sign-up-component");
     expect(signUpComponent).toBeInTheDocument();
-  });
+  })
 });
