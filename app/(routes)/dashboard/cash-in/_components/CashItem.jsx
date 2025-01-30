@@ -3,8 +3,9 @@ import formatNumber from "@/lib";
 
 function CashItem({ totalCash, totalSpend }) {
   const calculateProgressPerc = () => {
+    if (!totalCash || totalCash === 0) return 0;
     const perc = (totalSpend / totalCash) * 100;
-    return perc > 100 ? 100 : perc.toFixed(2);
+    return perc > 100 ? 100 : Number(perc.toFixed(2));
   };
 
   const remainingCash = parseFloat(totalCash - totalSpend);
@@ -34,6 +35,7 @@ function CashItem({ totalCash, totalSpend }) {
         </div>
         <div className="w-full bg-slate-300 h-2 rounded-full">
           <div
+            role="progressbar"
             className="bg-primary h-2 rounded-full"
             style={{
               width: `${calculateProgressPerc()}%`,

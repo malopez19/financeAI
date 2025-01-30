@@ -46,6 +46,7 @@ function CashList() {
             ))
           : [1, 2, 3, 4, 5].map((_, index) => (
               <div
+                data-testid="placeholder"
                 key={index}
                 className="w-full bg-slate-200 rounded-lg h-[150px] animate-pulse"
               ></div>
