@@ -1,7 +1,4 @@
 "use client";
-import { db } from "@/lib/dbConfig";
-import { Cash, Expenses } from "@/lib/schema";
-import { desc, eq } from "drizzle-orm";
 import React, { useEffect, useState } from "react";
 import ExpenseListTable from "./_components/ExpenseListTable";
 import { useUser } from "@clerk/nextjs";
