@@ -41,7 +41,7 @@ function SideNav() {
   useEffect(() => {
   }, [path]);
   return (
-    <div className="h-screen p-5 border shadow-sm">
+    <div className="h-screen p-5 border shadow-sm md:bg-white">
       <div className="flex flex-row items-center">
         <Image src={"./logo2.svg"} alt="logo" width={30} height={30} style={{width:"auto", height:"auto"}}/>
         <span className="text-blue-800 font-bold text-xl ml-3">FinappIA</span>

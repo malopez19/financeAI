@@ -1,13 +1,15 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SideNav from "./_components/SideNav";
 import DashboardHeader from "./_components/DashboardHeader";
 import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 function DashboardLayout({ children }) {
   const { user } = useUser();
   const router = useRouter();
+  const pathname = usePathname();
+  const [isSideNavVisible, setSideNavVisible] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -32,13 +34,22 @@ function DashboardLayout({ children }) {
       console.error("Error al verificar el cash del usuario:", error.message);
     }
   };
+
+  const toggleSideNav = () => {
+    setSideNavVisible(!isSideNavVisible);
+  };
+
+  useEffect(() => {
+    setSideNavVisible(false);
+  }, [pathname]);
+
   return (
     <div>
-      <div className="fixed md:w-64 hidden md:block ">
+      <div className={`fixed md:w-64 ${isSideNavVisible ? 'block bg-slate-100' : 'hidden'} sm:block`} >
         <SideNav />
       </div>
-      <div className="md:ml-64 ">
-        <DashboardHeader />
+      <div className="md:ml-64">
+        <DashboardHeader toggleSideNav={toggleSideNav}/>
         {children}
       </div>
     </div>

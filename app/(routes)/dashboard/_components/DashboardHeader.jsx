@@ -1,7 +1,7 @@
 import { UserButton, useUser, useClerk } from '@clerk/nextjs';
 import React, { useEffect } from 'react';
 
-function DashboardHeader() {
+function DashboardHeader({ toggleSideNav }) {
   const { user, isLoaded } = useUser(); // Añade isLoaded para verificar si el estado del usuario está cargado
   const { signOut } = useClerk();
 
@@ -15,6 +15,12 @@ function DashboardHeader() {
     <div className='p-5 shadow-sm border-b flex justify-between'>
       <div>
         {/* Puedes agregar contenido adicional aquí si es necesario */}
+        <button
+          className="sm:hidden p-2 bg-gray-800 text-white"
+          onClick={toggleSideNav}
+        >
+          Menu
+        </button>
       </div>
       <div>
         <UserButton fallbackRedirectUrl='/sign-in' afterSignOutUrl='/' />
