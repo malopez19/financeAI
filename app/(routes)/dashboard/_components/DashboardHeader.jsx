@@ -1,5 +1,6 @@
 import { UserButton, useUser, useClerk } from '@clerk/nextjs';
 import React, { useEffect } from 'react';
+import { Menu } from "lucide-react";
 
 function DashboardHeader({ toggleSideNav }) {
   const { user, isLoaded } = useUser(); // Añade isLoaded para verificar si el estado del usuario está cargado
@@ -16,10 +17,10 @@ function DashboardHeader({ toggleSideNav }) {
       <div>
         {/* Puedes agregar contenido adicional aquí si es necesario */}
         <button
-          className="sm:hidden p-2 bg-gray-800 text-white"
+          className="sm:hidden p-2 text-black"
           onClick={toggleSideNav}
         >
-          Menu
+          <Menu/>
         </button>
       </div>
       <div>
