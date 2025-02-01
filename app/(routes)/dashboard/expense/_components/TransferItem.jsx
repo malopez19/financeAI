@@ -29,7 +29,7 @@ function TransferItem({ id, totalCash, totalSpend }) {
               ${totalSpend ? totalSpend : 0} Gastado
             </h2>
             <h2 className="text-xs text-slate-400">
-              $ {totalCash} ingresado
+              ${totalCash} ingresado
             </h2>
           </div>
           <div className="w-full bg-slate-300 h-2 rounded-full">
