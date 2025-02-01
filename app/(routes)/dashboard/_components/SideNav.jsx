@@ -8,6 +8,8 @@ import {
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import logo from "@/public/logo2.svg";
+
 
 function SideNav() {
   const menuList = [
@@ -43,7 +45,7 @@ function SideNav() {
   return (
     <div className="h-screen p-5 border shadow-sm md:bg-white">
       <div className="flex flex-row items-center">
-        <Image src={"./logo2.svg"} alt="logo" width={30} height={30} style={{width:"auto", height:"auto"}}/>
+        <Image src={logo} alt="logo" width={30} height={30} style={{width:"auto", height:"auto"}}/>
         <span className="text-blue-800 font-bold text-xl ml-3">FinappIA</span>
       </div>
       <div className="mt-5">
