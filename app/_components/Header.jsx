@@ -9,10 +9,10 @@ import logo from "@/public/logo.svg";
 function Header() {
   const { isSignedIn } = useUser();
   return (
-    <div className="p-5 flex justify-between items-center shadow-sm bg-blue-900">
+    <div className="p-5 flex justify-between items-center shadow-sm bg-[#1a1a1a]">
       <div className="flex flex-row items-center">
         <Image src={logo} alt="logo" width={40} height={25} />
-        <span className="text-neutral-50 text-opacity-100 font-bold text-xl ml-2">FinappIA</span>
+        <span className="text-neutral-50 text-opacity-100 font-bold text-xl ml-2">Qoin </span>
       </div>
       {isSignedIn ? (
         <UserButton />

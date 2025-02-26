@@ -10,7 +10,7 @@ describe("componente registrarse", () => {
   // Verifica que el título esté presente
   test("se renderiza el parrafo de registrate", () => {
     render(<Page />);
-    const title = screen.getByText(/Registrate a FinappIA/i);
+    const title = screen.getByText(/Registrate a Qoin /i);
     expect(title).toBeInTheDocument();
   });
 

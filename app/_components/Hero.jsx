@@ -5,15 +5,15 @@ import imgDashboard from "../../public/dashboard.png";
 
 function Hero() {
   return (
-    <section className="bg-blue-900 flex items-center flex-col">
+    <section className="bg-[#1a1a1a] flex items-center flex-col">
       <div className="flex flex-col overflow-hidden">
         <ContainerScroll
           titleComponent={
             <>
               <h1 className="text-4xl font-semibold text-black dark:text-white mb-8">
-                Administra Tu Dinero Personal <br />
+                La forma mas inteligente de<br />
                 <span className="text-4xl md:text-[6rem] text-neutral-50 text-opacity-100 font-bold mt-1 mb-24 leading-none">
-                  App Financiera
+                  Administrar tu dinero
                 </span>
               </h1>
             </>

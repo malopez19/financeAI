@@ -22,7 +22,7 @@ describe('Page Component', () => {
 
     test('renderiza el mensaje de bienvenida', () => {
         render(<Page />);
-        const welcomeMessage = screen.getByText('Bienvenido a FinappIA');
+        const welcomeMessage = screen.getByText('Bienvenido a Qoin ');
         expect(welcomeMessage).toBeInTheDocument();
     });
 
