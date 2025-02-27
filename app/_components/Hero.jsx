@@ -10,7 +10,7 @@ function Hero() {
         <ContainerScroll
           titleComponent={
             <>
-              <h1 className="text-4xl font-semibold text-black dark:text-white mb-8">
+              <h1 className="text-4xl font-semibold text-[#ffd900ea] dark:text-white mb-8">
                 La forma mas inteligente de<br />
                 <span className="text-4xl md:text-[6rem] text-neutral-50 text-opacity-100 font-bold mt-1 mb-24 leading-none">
                   Administrar tu dinero
