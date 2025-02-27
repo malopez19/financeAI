@@ -2,9 +2,9 @@ import { SignIn } from "@clerk/nextjs";
 
 export default function Page() {
   return (
-    <section className="bg-[#1a1a1a]">
+    <section className="bg-[#27445d]">
       <div className="lg:grid lg:min-h-screen ">
-        <section className="relative flex h-32 sm:hidden bg-[#1a1a1a] lg:col-span-5 lg:h-full xl:col-span-6 justify-center items-center">
+        <section className="relative flex h-32 sm:hidden bg-[#27445d] lg:col-span-5 lg:h-full xl:col-span-6 justify-center items-center">
           
         </section>
 
